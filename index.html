@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesus, I Trust in You / Jesús, en Ti Confío</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS VISUALES --- */
+        :root {
+            --bg-light: #fffcf7;
+            --bg-paper: #fdfaf2;
+            --text-main: #5c574f;
+            --text-soft: #8a857a;
+            --gold: #D4AF37;
+            --gold-light: #f7f1e3;
+            --white: #ffffff;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Lora', serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top center, #fffdfa, var(--bg-light));
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0; padding: 0; line-height: 1.8;
+        }
+
+        /* BOTONES DE IDIOMA */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            background-color: rgba(255,255,255,0.8);
+        }
+        .lang-btn.active {
+            background: var(--gold);
+            color: white;
+        }
+        .lang-btn:hover { background: var(--gold-light); color: var(--text-main); }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 750px;
+            margin: 30px auto;
+            background-color: var(--white);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.1); 
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+
+        /* LÓGICA DE VISIBILIDAD */
+        .lang-content { display: none; } /* Oculto por defecto */
+        .lang-content.active { display: block; animation: fadeIn 0.8s; } /* Visible si tiene clase active */
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* CABECERA */
+        header {
+            text-align: center;
+            padding: 80px 30px 60px;
+            background: linear-gradient(to bottom, #fffefc, #fdfaf2);
+        }
+
+        h1 {
+            font-family: var(--font-title);
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin: 0 0 20px 0;
+            font-weight: normal;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-soft);
+            max-width: 550px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .divider {
+            text-align: center;
+            color: var(--gold);
+            opacity: 0.4;
+            font-size: 1.5rem;
+            margin: 30px 0;
+        }
+
+        .intro-section { padding: 20px 40px 50px; text-align: center; font-size: 1.15rem; }
+
+        /* TARJETAS DESTACADAS */
+        .highlights-section {
+            padding: 30px 40px;
+            background-color: #faf8f2;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .highlight-card {
+            background-color: var(--white);
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+        .highlight-card:hover { transform: translateY(-3px); }
+
+        .highlight-quote {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            color: #4a4a4a;
+            line-height: 1.4;
+        }
+
+        .highlight-final {
+             background: linear-gradient(to bottom right, var(--gold-light), #fff);
+             border: 2px solid var(--gold);
+        }
+        .highlight-final .highlight-quote { color: var(--gold); font-weight: bold; }
+
+        /* TEXTO DESPLEGABLE */
+        .full-text-section { padding: 50px 30px; background-color: var(--white); }
+
+        summary {
+            cursor: pointer;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            color: var(--gold);
+            text-align: center;
+            padding: 18px 35px;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            max-width: 320px;
+            margin: 0 auto;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+        summary:hover { background-color: var(--gold); color: white; }
+        summary::-webkit-details-marker { display: none; }
+        
+        .prayer-content {
+            margin-top: 40px;
+            padding: 40px;
+            background-color: var(--bg-paper);
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .prayer-part h3 {
+            font-family: var(--font-title);
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .prayer-text { white-space: pre-line; font-size: 1.15rem; text-align: left; color: #444; }
+
+        /* SECCIÓN COMPARTIR */
+        .share-section {
+            padding: 70px 30px;
+            text-align: center;
+            background: linear-gradient(to top, #fdfaf2, #fff);
+        }
+
+        .btn-share {
+            display: inline-block;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            transition: all 0.3s;
+        }
+        .btn-share:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); }
+
+        footer { text-align: center; padding: 30px; font-size: 0.9rem; color: #aaa; background-color: #fcfbf8; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .container { margin: 0; border-radius: 0; }
+            .highlight-quote { font-size: 1.2rem; }
+            .prayer-content { padding: 25px; }
+            .lang-switch { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="switchLang('es')" id="btn-es">ES</button>
+        <button class="lang-btn" onclick="switchLang('en')" id="btn-en">EN</button>
+    </div>
+
+    <div class="container">
+        
+        <div id="content-es" class="lang-content active">
+            <header>
+                <h1>Jesús, en ti confío</h1>
+                <div class="divider">⚜️</div>
+                <p class="subtitle">Este escrito llegó a mí hace 30 días.<br>Hoy cumplo mi promesa de entregártelo a ti.</p>
+            </header>
+
+            <section class="intro-section">
+                <p>"Lo leí cuando necesitaba respuestas. No tienes que leerlo todo de golpe. Solo respira y lee lo que tu corazón necesite hoy."</p>
+            </section>
+
+            <section class="highlights-section">
+                <div class="section-title">Palabras para tu paz</div>
+                <div class="highlight-card">
+                    <div class="highlight-quote">"¿Por qué te confundes y te angustias ante los problemas de la vida? Déjame el cuidado de todas tus cosas y todo irá mejor."</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-quote">"Lo que más daño te hace es tu razonamiento y tus ideas, y querer resolver las cosas a tu manera."</div>
+                </div>
+                <div class="highlight-card highlight-final">
+                    <div class="highlight-quote">"Necesito las manos libres para poder obrar. No me ates con tus preocupaciones inútiles... Echa en mí todas tus angustias."</div>
+                </div>
+            </section>
+
+            <section class="full-text-section">
+                <details>
+                    <summary>📖 Leer el Escrito Completo</summary>
+                    <div class="prayer-content">
+                        <div class="prayer-part">
+                            <h3>El Mensaje de Jesús</h3>
+                            <div class="prayer-text">
+                                Cuando te entregues a mí, todo se resolverá con tranquilidad según mis designios. No te desesperes, no me dirijas una oración agitada, como si quisieras exigirme el cumplimiento de tus deseos. Cierra los ojos del alma y dime con calma:
+
+                                <strong>¡Jesús, yo en ti confío!</strong>
+
+                                Déjate llevar en mis brazos divinos, no tengas miedo, yo TE AMO. Si crees que las cosas empeoran o se complican a pesar de tu oración, sigue confiando.
+
+                                Confía en mí, reposa en mí. Yo hago los milagros en la proporción de la entrega y confianza que tienes en mí. Así que no te preocupes. Duerme tranquilamente. Dime siempre:
+
+                                <strong>¡Jesús, yo en ti confío!</strong>
+                                Y verás grandes milagros.
+                            </div>
+                        </div>
+                        <div class="divider" style="font-size: 1rem; margin: 40px 0;">⚜️</div>
+                        <div class="prayer-part">
+                            <h3>Oración para los 30 Días</h3>
+                            <div class="prayer-text">
+                                Mi Jesús, en ti deposité toda mi confianza. Tú sabes de todo, Padre y Señor del Universo, eres el Rey de reyes. Tú que hiciste al paralítico andar, al muerto vivir, al leproso sanar. Tú que conoces mis angustias y ves mis lágrimas, bien sabes Divino Amigo, cómo preciso alcanzar de ti esta gracia:
+
+                                <em>(Pide aquí la gracia con fe)</em>
+
+                                Haz Divino Jesús que antes de que termine esta conversación que tendré contigo durante 30 días, yo pueda alcanzar esta gracia que te pido con mucha fe y esperanza.
+
+                                Mi conversación contigo Divino Maestro, me da ánimo y alegría para vivir, sólo de ti espero con fe y esperanza.
+
+                                Ilumina mis pasos, así como el sol ilumina cada mañana el amanecer, y testifica nuestra conversación.
+                                Jesucristo tengo confianza en ti, y cada día más aumenta mi fe en ti.
+                            </div>
+                        </div>
+                        <div style="text-align: center; color: var(--gold); font-family: var(--font-title); font-size: 1.8rem; margin-top:40px;">
+                            ¡Jesús, en ti Confío!
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="share-section">
+                <h3 style="color: var(--text-main); font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px;">Ayúdame a que la cadena no se rompa</h3>
+                <p style="font-size: 1rem; color: var(--text-soft); max-width: 500px; margin: 0 auto 30px auto;">
+                    Mi promesa fue difundir este mensaje.
+                    Al compartir este enlace, estás entregando esta paz a quien la necesita hoy.
+                </p>
+                <a href="https://api.whatsapp.com/send?text=Te%20regalo%20esta%20oración%20que%20a%20mí%20me%20ha%20dado%20mucha%20paz.%20Léela%20aquí:%20https://praywithjesustoday.com" class="btn-share" target="_blank">
+                    Compartir por WhatsApp 🕊️
+                </a>
+            </section>
+            
+            <footer>Hecho con fe. Gracias por ser parte de esta cadena.</footer>
+        </div>
+
+        <div id="content-en" class="lang-content">
+            <header>
+                <h1>Jesus, I Trust in You</h1>
+                <div class="divider">⚜️</div>
+                <p class="subtitle">This message came to me 30 days ago.<br>Today I keep my promise to deliver it to you.</p>
+            </header>
+
+            <section class="intro-section">
+                <p>"I read it when I needed answers. You don't have to read it all at once. Just breathe and read what your heart needs today."</p>
+            </section>
+
+            <section class="highlights-section">
+                <div class="section-title">Words for your peace</div>
+                <div class="highlight-card">
+                    <div class="highlight-quote">"Why are you confused and agitated by the problems of life? Leave the care of all your things to Me and everything will be better."</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-quote">"What hurts you most is your reasoning and your ideas, and wanting to resolve things your way."</div>
+                </div>
+                <div class="highlight-card highlight-final">
+                    <div class="highlight-quote">"I need my hands free to work. Don't bind Me with your useless worries... Cast all your anguish upon Me."</div>
+                </div>
+            </section>
+
+            <section class="full-text-section">
+                <details>
+                    <summary>📖 Read Full Message</summary>
+                    <div class="prayer-content">
+                        <div class="prayer-part">
+                            <h3>The Message of Jesus</h3>
+                            <div class="prayer-text">
+                                When you surrender to Me, everything will be resolved peacefully according to My designs. Do not despair, do not offer Me an agitated prayer, as if you wanted to demand the fulfillment of your wishes. Close the eyes of your soul and tell Me calmly:
+
+                                <strong>Jesus, I trust in You!</strong>
+
+                                Let yourself be carried in My divine arms, do not be afraid, I LOVE YOU. If you think things are getting worse or complicated despite your prayer, keep trusting.
+
+                                Trust in Me, rest in Me. I perform miracles in proportion to the surrender and trust you have in Me. So do not worry. Sleep peacefully. Always tell Me:
+
+                                <strong>Jesus, I trust in You!</strong>
+                                And you will see great miracles.
+                            </div>
+                        </div>
+                        <div class="divider" style="font-size: 1rem; margin: 40px 0;">⚜️</div>
+                        <div class="prayer-part">
+                            <h3>30 Day Prayer</h3>
+                            <div class="prayer-text">
+                                My Jesus, in You I have placed all my trust. You know everything, Father and Lord of the Universe, You are the King of kings. You who made the paralyzed walk, the dead live, the leper heal. You who know my anguish and see my tears, You know well, Divine Friend, how I need to obtain this grace from You:
+
+                                <em>(Ask for your grace here with faith)</em>
+
+                                Make it so, Divine Jesus, that before this conversation I will have with You for 30 days ends, I may obtain this grace I ask of You with much faith and hope.
+
+                                My conversation with You, Divine Master, gives me encouragement and joy to live; from You alone I hope with faith and hope.
+
+                                Illuminate my steps, just as the sun illuminates the dawn each morning, and bear witness to our conversation.
+                                Jesus Christ, I have confidence in You, and every day my faith in You increases.
+                            </div>
+                        </div>
+                        <div style="text-align: center; color: var(--gold); font-family: var(--font-title); font-size: 1.8rem; margin-top:40px;">
+                            Jesus, I Trust in You!
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="share-section">
+                <h3 style="color: var(--text-main); font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px;">Help me keep the chain unbroken</h3>
+                <p style="font-size: 1rem; color: var(--text-soft); max-width: 500px; margin: 0 auto 30px auto;">
+                    My promise was to spread this message.
+                    By sharing this link, you are delivering this peace to someone who needs it today.
+                </p>
+                <a href="https://api.whatsapp.com/send?text=I%20give%20you%20this%20prayer%20that%20has%20given%20me%20so%20much%20peace.%20Read%20it%20here:%20https://praywithjesustoday.com" class="btn-share" target="_blank">
+                    Share on WhatsApp 🕊️
+                </a>
+            </section>
+            
+            <footer>Made with faith. Thank you for being part of this chain.</footer>
+        </div>
+
+    </div>
+
+    <script>
+        function switchLang(lang) {
+            // 1. Quitar la clase 'active' de todos los contenidos y botones
+            var contents = document.querySelectorAll('.lang-content');
+            var buttons = document.querySelectorAll('.lang-btn');
+            
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            // 2. Añadir la clase 'active' solo al idioma seleccionado
+            document.getElementById('content-' + lang).classList.add('active');
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
