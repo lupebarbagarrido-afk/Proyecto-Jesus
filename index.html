@@ -1,417 +1,1013 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jesus, I Trust in You / Jesús, en Ti Confío</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <title>Jesús, en Ti Confío | Oración de los 30 Días</title>
+    <meta name="description" content="Esta oración me llegó en un momento difícil y me llenó de paz. Hoy te la comparto. Léela durante 30 días con fe y compártela.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- ESTILOS VISUALES --- */
         :root {
-            --bg-light: #fffcf7;
-            --bg-paper: #fdfaf2;
-            --text-main: #5c574f;
-            --text-soft: #8a857a;
-            --gold: #D4AF37;
-            --gold-light: #f7f1e3;
-            --white: #ffffff;
-            --font-title: 'Playfair Display', serif;
-            --font-body: 'Lora', serif;
+            --gold: #C5A055;
+            --gold-deep: #9A7B3A;
+            --gold-glow: #E8D5A3;
+            --gold-faint: rgba(197, 160, 85, 0.08);
+            --cream: #FDFBF7;
+            --cream-warm: #F8F4ED;
+            --ink: #1A1A1A;
+            --ink-soft: #4A4A4A;
+            --ink-muted: #7A7A7A;
+            --whatsapp: #25D366;
+            --whatsapp-deep: #1DA851;
+            --white: #FFFFFF;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background: radial-gradient(circle at top center, #fffdfa, var(--bg-light));
-            color: var(--text-main);
-            font-family: var(--font-body);
-            margin: 0; padding: 0; line-height: 1.8;
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* BOTONES DE IDIOMA */
-        .lang-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
+        /* ── LANG TOGGLE ── */
+        .lang-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            gap: 2px;
+            background: var(--white);
+            padding: 3px;
+            border-radius: 100px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(197, 160, 85, 0.15);
         }
-        .lang-btn {
+
+        .lang-toggle button {
+            border: none;
             background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 5px 10px;
+            padding: 8px 18px;
+            border-radius: 100px;
             cursor: pointer;
-            font-family: sans-serif;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            transition: all 0.3s;
-            background-color: rgba(255,255,255,0.8);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            color: var(--ink-muted);
+            transition: all 0.4s var(--ease-out-expo);
         }
-        .lang-btn.active {
+
+        .lang-toggle button.active {
             background: var(--gold);
-            color: white;
+            color: var(--white);
         }
-        .lang-btn:hover { background: var(--gold-light); color: var(--text-main); }
 
-        /* CONTENEDOR PRINCIPAL */
-        .container {
-            max-width: 750px;
-            margin: 30px auto;
-            background-color: var(--white);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.1); 
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.1);
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 100px 24px 48px;
             position: relative;
+            overflow: hidden;
         }
 
-        /* LÓGICA DE VISIBILIDAD */
-        .lang-content { display: none; } /* Oculto por defecto */
-        .lang-content.active { display: block; animation: fadeIn 0.8s; } /* Visible si tiene clase active */
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* CABECERA */
-        header {
-            text-align: center;
-            padding: 80px 30px 60px;
-            background: linear-gradient(to bottom, #fffefc, #fdfaf2);
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 40%, rgba(197, 160, 85, 0.06) 0%, transparent 70%),
+                linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+            pointer-events: none;
         }
 
-        h1 {
-            font-family: var(--font-title);
-            font-size: 3.5rem;
-            color: var(--gold);
-            margin: 0 0 20px 0;
-            font-weight: normal;
-            letter-spacing: 1px;
-            line-height: 1.2;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-soft);
-            max-width: 550px;
-            margin: 0 auto;
-            font-style: italic;
-        }
-
-        .divider {
-            text-align: center;
-            color: var(--gold);
+        .hero-cross {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 36px;
             opacity: 0.4;
-            font-size: 1.5rem;
-            margin: 30px 0;
+            position: relative;
+            z-index: 1;
         }
 
-        .intro-section { padding: 20px 40px 50px; text-align: center; font-size: 1.15rem; }
+        .hero-cross line {
+            stroke: var(--gold);
+            stroke-width: 1.5;
+        }
 
-        /* TARJETAS DESTACADAS */
-        .highlights-section {
-            padding: 30px 40px;
-            background-color: #faf8f2;
-            border-top: 1px solid rgba(212, 175, 55, 0.15);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        .hero-eyebrow {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 5.5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--gold-deep);
+        }
+
+        .hero-body {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+            max-width: 500px;
+            line-height: 1.75;
+            margin-bottom: 44px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta-read {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: all 0.5s var(--ease-out-expo);
+            box-shadow: 0 8px 24px rgba(197, 160, 85, 0.3);
+        }
+
+        .hero-cta-read:hover {
+            background: var(--gold-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(197, 160, 85, 0.35);
+        }
+
+        .hero-cta-read:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .hero-cta-read svg {
+            transition: transform 0.4s var(--ease-spring);
+        }
+
+        .hero-cta-read:hover svg {
+            transform: translateY(2px);
+        }
+
+        .hero-cta-share {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--whatsapp-deep);
+            border: 1.5px solid var(--whatsapp);
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .hero-cta-share:hover {
+            background: var(--whatsapp);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+        }
+
+        .hero-cta-share:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .hero-cta-share svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .hero-scroll-hint {
+            display: none;
+        }
+
+        /* ── REVEAL ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.35s; }
+        .reveal-delay-4 { transition-delay: 0.5s; }
+
+        /* ── SECTION ── */
+        .section {
+            padding: 100px 24px;
+        }
+
+        .section-narrow {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
         }
 
         .section-title {
-            text-align: center;
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.9rem;
-            color: var(--gold);
-            margin-bottom: 40px;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 600;
+            color: var(--ink);
+            line-height: 1.2;
+            margin-bottom: 16px;
         }
 
-        .highlight-card {
-            background-color: var(--white);
-            padding: 35px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            transition: transform 0.3s ease;
-        }
-        .highlight-card:hover { transform: translateY(-3px); }
-
-        .highlight-quote {
-            font-family: var(--font-title);
-            font-size: 1.4rem;
-            color: #4a4a4a;
-            line-height: 1.4;
+        .section-subtitle {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
+            max-width: 560px;
         }
 
-        .highlight-final {
-             background: linear-gradient(to bottom right, var(--gold-light), #fff);
-             border: 2px solid var(--gold);
+        /* ── DIVIDER ── */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 24px;
         }
-        .highlight-final .highlight-quote { color: var(--gold); font-weight: bold; }
 
-        /* TEXTO DESPLEGABLE */
-        .full-text-section { padding: 50px 30px; background-color: var(--white); }
+        .divider-line {
+            height: 1px;
+            width: 60px;
+            background: linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+        }
 
-        summary {
-            cursor: pointer;
-            font-family: var(--font-title);
-            font-size: 1.1rem;
+        .divider-icon {
             color: var(--gold);
-            text-align: center;
-            padding: 18px 35px;
-            border: 2px solid var(--gold);
-            border-radius: 50px;
-            max-width: 320px;
+            opacity: 0.5;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+        }
+
+        /* ── PRAYER SECTION ── */
+        .prayer-section {
+            background: var(--white);
+            border-top: 1px solid rgba(197, 160, 85, 0.1);
+            border-bottom: 1px solid rgba(197, 160, 85, 0.1);
+        }
+
+        .prayer-frame {
+            background: var(--cream);
+            border-radius: 24px;
+            padding: 56px 48px;
+            box-shadow:
+                0 1px 0 rgba(197, 160, 85, 0.12),
+                0 24px 48px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(197, 160, 85, 0.1);
+            position: relative;
+            overflow: hidden;
+            max-width: 720px;
             margin: 0 auto;
-            list-style: none;
-            transition: all 0.3s ease;
-        }
-        summary:hover { background-color: var(--gold); color: white; }
-        summary::-webkit-details-marker { display: none; }
-        
-        .prayer-content {
-            margin-top: 40px;
-            padding: 40px;
-            background-color: var(--bg-paper);
-            border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .prayer-part h3 {
-            font-family: var(--font-title);
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-bottom: 25px;
+        .prayer-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-glow), var(--gold));
+        }
+
+        .prayer-body {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            line-height: 1.85;
+            color: var(--ink-soft);
+        }
+
+        .prayer-body p {
+            margin-bottom: 24px;
+        }
+
+        .prayer-instruction {
             text-align: center;
+            margin: 12px 0 28px;
         }
 
-        .prayer-text { white-space: pre-line; font-size: 1.15rem; text-align: left; color: #444; }
-
-        /* SECCIÓN COMPARTIR */
-        .share-section {
-            padding: 70px 30px;
-            text-align: center;
-            background: linear-gradient(to top, #fdfaf2, #fff);
-        }
-
-        .btn-share {
+        .prayer-instruction span {
             display: inline-block;
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-            transition: all 0.3s;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gold-deep);
+            background: var(--white);
+            padding: 10px 24px;
+            border-radius: 100px;
+            border: 1px solid rgba(197, 160, 85, 0.2);
         }
-        .btn-share:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); }
 
-        footer { text-align: center; padding: 30px; font-size: 0.9rem; color: #aaa; background-color: #fcfbf8; }
+        .prayer-commitment {
+            font-weight: 500;
+            color: var(--ink);
+            border-left: 3px solid var(--gold);
+            padding: 16px 24px;
+            background: var(--white);
+            border-radius: 0 12px 12px 0;
+            margin: 32px 0;
+        }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .container { margin: 0; border-radius: 0; }
-            .highlight-quote { font-size: 1.2rem; }
-            .prayer-content { padding: 25px; }
-            .lang-switch { top: 10px; right: 10px; }
+        .prayer-closing {
+            text-align: center;
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: var(--ink-soft);
+            margin-top: 8px;
+        }
+
+        /* ── SHARE STRIP (after prayer) ── */
+        .share-strip {
+            text-align: center;
+            padding-top: 48px;
+            margin-top: 48px;
+            border-top: 1px solid rgba(197, 160, 85, 0.15);
+        }
+
+        .share-strip-text {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: var(--ink-muted);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .share-strip-text em {
+            color: var(--ink-soft);
+        }
+
+        .share-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--whatsapp);
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .btn-whatsapp:hover {
+            background: var(--whatsapp-deep);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(37, 211, 102, 0.35);
+        }
+
+        .btn-whatsapp:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .btn-whatsapp svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .btn-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--ink-muted);
+            border: 1.5px solid rgba(0, 0, 0, 0.1);
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .btn-copy:hover {
+            border-color: var(--gold);
+            color: var(--gold-deep);
+        }
+
+        .btn-copy.copied {
+            border-color: var(--whatsapp);
+            color: var(--whatsapp-deep);
+        }
+
+        .btn-copy svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ── MESSAGE SECTION (extra) ── */
+        .message-section {
+            background: var(--cream-warm);
+        }
+
+        .message-card .prayer-body {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--ink-soft);
+        }
+
+        .message-card .prayer-body p {
+            margin-bottom: 28px;
+        }
+
+        .mantra {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            font-weight: 700;
+            color: var(--gold-deep);
+            padding: 36px 0;
+            position: relative;
+        }
+
+        .mantra::before,
+        .mantra::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold-glow);
+            margin: 0 auto 20px;
+        }
+
+        .mantra::after {
+            margin: 20px auto 0;
+        }
+
+        .message-closing {
+            text-align: center;
+            font-family: 'Lora', serif;
+            font-weight: 500;
+            font-size: 1.15rem;
+            color: var(--ink);
+        }
+
+        /* ── QUOTES ── */
+        .quotes-section {
+            background: var(--white);
+            border-top: 1px solid rgba(197, 160, 85, 0.1);
+            border-bottom: 1px solid rgba(197, 160, 85, 0.1);
+        }
+
+        .quotes-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .quotes-list {
+            max-width: 640px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quote-item {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: var(--ink-soft);
+            padding: 28px 32px;
+            background: var(--cream);
+            border-radius: 16px;
+            border-left: 3px solid var(--gold-glow);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .quote-item:hover {
+            border-left-color: var(--gold);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* ── FINAL CTA ── */
+        .final-section {
+            background: var(--ink);
+            text-align: center;
+            padding: 100px 24px;
+        }
+
+        .final-mantra {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--gold-glow);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .final-body {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 440px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .final-section .btn-whatsapp {
+            background: var(--gold);
+            box-shadow: 0 8px 24px rgba(197, 160, 85, 0.3);
+        }
+
+        .final-section .btn-whatsapp:hover {
+            background: var(--gold-deep);
+            box-shadow: 0 16px 36px rgba(197, 160, 85, 0.35);
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            background: var(--cream);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .section {
+                padding: 72px 20px;
+            }
+
+            .prayer-frame {
+                padding: 36px 24px;
+                border-radius: 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .lang-toggle {
+                top: 16px;
+                right: 16px;
+            }
+
+            .message-card .prayer-body,
+            .prayer-body {
+                font-size: 1.05rem;
+            }
+
+            .final-section {
+                padding: 72px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-body {
+                font-size: 1rem;
+            }
+
+            .mantra {
+                font-size: 1.2rem;
+            }
+
+            .prayer-frame {
+                padding: 28px 20px;
+            }
+
+            .btn-whatsapp {
+                padding: 16px 28px;
+                font-size: 0.95rem;
+            }
+
+            .hero-cta-read {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+
+            .hero-cta-share {
+                padding: 10px 22px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="lang-switch">
-        <button class="lang-btn active" onclick="switchLang('es')" id="btn-es">ES</button>
-        <button class="lang-btn" onclick="switchLang('en')" id="btn-en">EN</button>
+    <!-- Lang Toggle -->
+    <div class="lang-toggle">
+        <button class="active" onclick="switchLang('es')" id="btn-es">ES</button>
+        <button onclick="switchLang('en')" id="btn-en">EN</button>
     </div>
 
-    <div class="container">
-        
-        <div id="content-es" class="lang-content active">
-            <header>
-                <h1>Jesús, en ti confío</h1>
-                <div class="divider">⚜️</div>
-                <p class="subtitle">Este escrito llegó a mí hace 30 días.<br>Hoy cumplo mi promesa de entregártelo a ti.</p>
-            </header>
+    <!-- ═══════════════════════════════════ -->
+    <!--          CONTENIDO ESPAÑOL          -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="content-es" class="lang-content active">
 
-            <section class="intro-section">
-                <p>"Lo leí cuando necesitaba respuestas. No tienes que leerlo todo de golpe. Solo respira y lee lo que tu corazón necesite hoy."</p>
-            </section>
+        <!-- HERO -->
+        <section class="hero">
+            <h1 class="reveal">Oración de los <em>30 Días</em></h1>
+            <p class="hero-body reveal reveal-delay-1">Este escrito llegó a mí hace 30 días.<br>Hoy cumplo mi promesa de entregártelo a ti, con el deseo de que te ayude tanto como me ayudó a mí.</p>
 
-            <section class="highlights-section">
-                <div class="section-title">Palabras para tu paz</div>
-                <div class="highlight-card">
-                    <div class="highlight-quote">"¿Por qué te confundes y te angustias ante los problemas de la vida? Déjame el cuidado de todas tus cosas y todo irá mejor."</div>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-quote">"Lo que más daño te hace es tu razonamiento y tus ideas, y querer resolver las cosas a tu manera."</div>
-                </div>
-                <div class="highlight-card highlight-final">
-                    <div class="highlight-quote">"Necesito las manos libres para poder obrar. No me ates con tus preocupaciones inútiles... Echa en mí todas tus angustias."</div>
-                </div>
-            </section>
+            <div class="hero-actions reveal reveal-delay-2">
+                <a href="https://api.whatsapp.com/send?text=Te%20comparto%20esta%20oración%20que%20a%20mí%20me%20ha%20dado%20mucha%20paz.%20Léela%20durante%2030%20días%20con%20fe:%20https://praywithjesustoday.com" class="hero-cta-share" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                    Compartir por WhatsApp
+                </a>
+            </div>
 
-            <section class="full-text-section">
-                <details>
-                    <summary>📖 Leer el Escrito Completo</summary>
-                    <div class="prayer-content">
-                        <div class="prayer-part">
-                            <h3>El Mensaje de Jesús</h3>
-                            <div class="prayer-text">
-                                Cuando te entregues a mí, todo se resolverá con tranquilidad según mis designios. No te desesperes, no me dirijas una oración agitada, como si quisieras exigirme el cumplimiento de tus deseos. Cierra los ojos del alma y dime con calma:
+        </section>
 
-                                <strong>¡Jesús, yo en ti confío!</strong>
+        <!-- LA ORACIÓN DE LOS 30 DÍAS -->
+        <section class="section prayer-section" id="oracion-es" style="padding-top: 56px;">
+            <div class="section-narrow">
+                <div class="prayer-frame reveal">
+                    <div class="prayer-body">
+                        <p>Mi Jesús, en ti deposité toda mi confianza. Tú sabes de todo, Padre y Señor del Universo, eres el Rey de reyes. Tú que hiciste al paralítico andar, al muerto vivir, al leproso sanar. Tú que conoces mis angustias y ves mis lágrimas, bien sabes Divino Amigo, cómo preciso alcanzar de ti esta gracia:</p>
 
-                                Déjate llevar en mis brazos divinos, no tengas miedo, yo TE AMO. Si crees que las cosas empeoran o se complican a pesar de tu oración, sigue confiando.
-
-                                Confía en mí, reposa en mí. Yo hago los milagros en la proporción de la entrega y confianza que tienes en mí. Así que no te preocupes. Duerme tranquilamente. Dime siempre:
-
-                                <strong>¡Jesús, yo en ti confío!</strong>
-                                Y verás grandes milagros.
-                            </div>
+                        <div class="prayer-instruction">
+                            <span>Pide aquí tu gracia con fe</span>
                         </div>
-                        <div class="divider" style="font-size: 1rem; margin: 40px 0;">⚜️</div>
-                        <div class="prayer-part">
-                            <h3>Oración para los 30 Días</h3>
-                            <div class="prayer-text">
-                                Mi Jesús, en ti deposité toda mi confianza. Tú sabes de todo, Padre y Señor del Universo, eres el Rey de reyes. Tú que hiciste al paralítico andar, al muerto vivir, al leproso sanar. Tú que conoces mis angustias y ves mis lágrimas, bien sabes Divino Amigo, cómo preciso alcanzar de ti esta gracia:
 
-                                <em>(Pide aquí la gracia con fe)</em>
+                        <p>Haz Divino Jesús que antes de que termine esta conversación que tendré contigo durante 30 días, yo pueda alcanzar esta gracia que te pido con mucha fe y esperanza.</p>
 
-                                Haz Divino Jesús que antes de que termine esta conversación que tendré contigo durante 30 días, yo pueda alcanzar esta gracia que te pido con mucha fe y esperanza.
+                        <p>Mi conversación contigo Divino Maestro, me da ánimo y alegría para vivir, solo de ti espero con fe y esperanza.</p>
 
-                                Mi conversación contigo Divino Maestro, me da ánimo y alegría para vivir, sólo de ti espero con fe y esperanza.
-
-                                Ilumina mis pasos, así como el sol ilumina cada mañana el amanecer, y testifica nuestra conversación.
-                                Jesucristo tengo confianza en ti, y cada día más aumenta mi fe en ti.
-                            </div>
+                        <div class="prayer-instruction">
+                            <span>Pide aquí tu gracia con fe</span>
                         </div>
-                        <div style="text-align: center; color: var(--gold); font-family: var(--font-title); font-size: 1.8rem; margin-top:40px;">
-                            ¡Jesús, en ti Confío!
+
+                        <p class="prayer-commitment">Con gratitud, difundiré esta oración para que otros se acerquen a ti, encuentren en ti su auxilio, aprendan a confiar en tu misericordia y continúen transmitiendo tu mensaje.</p>
+
+                        <p>Ilumina mis pasos, así como el sol ilumina cada mañana el amanecer, y testifica nuestra conversación.</p>
+
+                        <p class="prayer-closing">Jesucristo tengo confianza en ti, y cada día más aumenta mi fe en ti.</p>
+                    </div>
+
+                    <!-- SHARE after prayer -->
+                    <div class="share-strip">
+                        <div class="share-buttons">
+                            <a href="https://api.whatsapp.com/send?text=Te%20comparto%20esta%20oración%20que%20a%20mí%20me%20ha%20dado%20mucha%20paz.%20Léela%20durante%2030%20días%20con%20fe:%20https://praywithjesustoday.com" class="btn-whatsapp" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                                Enviar por WhatsApp
+                            </a>
+                            <button class="btn-copy" onclick="copyLink('es')">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="10" height="10" rx="2"/><path d="M4 14V5a2 2 0 0 1 2-2h9"/></svg>
+                                <span class="copy-label">Copiar enlace</span>
+                            </button>
                         </div>
                     </div>
-                </details>
-            </section>
+                </div>
+            </div>
+        </section>
 
-            <section class="share-section">
-                <h3 style="color: var(--text-main); font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px;">Ayúdame a que la cadena no se rompa</h3>
-                <p style="font-size: 1rem; color: var(--text-soft); max-width: 500px; margin: 0 auto 30px auto;">
-                    Mi promesa fue difundir este mensaje.
-                    Al compartir este enlace, estás entregando esta paz a quien la necesita hoy.
-                </p>
-                <a href="https://api.whatsapp.com/send?text=Te%20regalo%20esta%20oración%20que%20a%20mí%20me%20ha%20dado%20mucha%20paz.%20Léela%20aquí:%20https://praywithjesustoday.com" class="btn-share" target="_blank">
-                    Compartir por WhatsApp 🕊️
-                </a>
-            </section>
-            
-            <footer>Hecho con fe. Gracias por ser parte de esta cadena.</footer>
+        <!-- DIVIDER -->
+        <div class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-icon">&#10013;</span>
+            <span class="divider-line"></span>
         </div>
 
-        <div id="content-en" class="lang-content">
-            <header>
-                <h1>Jesus, I Trust in You</h1>
-                <div class="divider">⚜️</div>
-                <p class="subtitle">This message came to me 30 days ago.<br>Today I keep my promise to deliver it to you.</p>
-            </header>
+        <!-- EL MENSAJE DE JESÚS (EXTRA) -->
+        <section class="section message-section" id="mensaje-es">
+            <div class="section-narrow">
+                <p class="section-label reveal">Para leer con calma</p>
+                <h2 class="section-title reveal" style="margin-bottom: 48px;">El Mensaje de Jesús</h2>
 
-            <section class="intro-section">
-                <p>"I read it when I needed answers. You don't have to read it all at once. Just breathe and read what your heart needs today."</p>
-            </section>
+                <div class="message-card">
+                    <div class="prayer-body">
+                        <p class="reveal">Cuando te entregues a mí, todo se resolverá con tranquilidad según mis designios. No te desesperes, no me dirijas una oración agitada, como si quisieras exigirme el cumplimiento de tus deseos.</p>
 
-            <section class="highlights-section">
-                <div class="section-title">Words for your peace</div>
-                <div class="highlight-card">
-                    <div class="highlight-quote">"Why are you confused and agitated by the problems of life? Leave the care of all your things to Me and everything will be better."</div>
+                        <p class="reveal">Cierra los ojos del alma y dime con calma:</p>
+
+                        <div class="mantra reveal">Jesús, yo en Ti confío</div>
+
+                        <p class="reveal">Déjate llevar en mis brazos divinos, no tengas miedo, yo TE AMO. Si crees que las cosas empeoran o se complican a pesar de tu oración, sigue confiando.</p>
+
+                        <p class="reveal">Confía en mí, reposa en mí. Yo hago los milagros en la proporción de la entrega y confianza que tienes en mí. Así que no te preocupes. Duerme tranquilamente. Dime siempre:</p>
+
+                        <div class="mantra reveal">Jesús, yo en Ti confío</div>
+
+                        <p class="message-closing reveal">Y verás grandes milagros.<br>Te lo prometo con mi amor.</p>
+                    </div>
                 </div>
-                <div class="highlight-card">
-                    <div class="highlight-quote">"What hurts you most is your reasoning and your ideas, and wanting to resolve things your way."</div>
+            </div>
+        </section>
+
+        <!-- CITAS -->
+        <section class="section quotes-section">
+            <div class="quotes-header reveal">
+                <p class="section-label">Para tu paz</p>
+                <h2 class="section-title">Palabras que me ayudaron</h2>
+            </div>
+
+            <div class="quotes-list">
+                <div class="quote-item reveal">
+                    "¿Por qué te confundes y te angustias ante los problemas de la vida? Déjame el cuidado de todas tus cosas y todo irá mejor."
                 </div>
-                <div class="highlight-card highlight-final">
-                    <div class="highlight-quote">"I need my hands free to work. Don't bind Me with your useless worries... Cast all your anguish upon Me."</div>
+                <div class="quote-item reveal reveal-delay-1">
+                    "Lo que más daño te hace es tu razonamiento y tus ideas, y querer resolver las cosas a tu manera."
                 </div>
-            </section>
+                <div class="quote-item reveal reveal-delay-2">
+                    "Necesito las manos libres para poder obrar. No me ates con tus preocupaciones inútiles... Echa en mí todas tus angustias."
+                </div>
+            </div>
+        </section>
 
-            <section class="full-text-section">
-                <details>
-                    <summary>📖 Read Full Message</summary>
-                    <div class="prayer-content">
-                        <div class="prayer-part">
-                            <h3>The Message of Jesus</h3>
-                            <div class="prayer-text">
-                                When you surrender to Me, everything will be resolved peacefully according to My designs. Do not despair, do not offer Me an agitated prayer, as if you wanted to demand the fulfillment of your wishes. Close the eyes of your soul and tell Me calmly:
+        <!-- FINAL CTA -->
+        <section class="final-section">
+            <p class="final-mantra reveal">Jesús, yo en Ti confío</p>
+            <p class="final-body reveal">A mí esta oración me cambió. Si a ti también te ha ayudado, compártela con alguien que la necesite. Haz como hice yo.</p>
+            <a href="https://api.whatsapp.com/send?text=Te%20comparto%20esta%20oración%20que%20a%20mí%20me%20ha%20dado%20mucha%20paz.%20Léela%20durante%2030%20días%20con%20fe:%20https://praywithjesustoday.com" class="btn-whatsapp reveal" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                Compartir esta oración
+            </a>
+        </section>
 
-                                <strong>Jesus, I trust in You!</strong>
+        <footer class="footer">Hecho con fe. Paz, luz y amor.</footer>
+    </div>
 
-                                Let yourself be carried in My divine arms, do not be afraid, I LOVE YOU. If you think things are getting worse or complicated despite your prayer, keep trusting.
+    <!-- ═══════════════════════════════════ -->
+    <!--          CONTENIDO INGLÉS           -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="content-en" class="lang-content">
 
-                                Trust in Me, rest in Me. I perform miracles in proportion to the surrender and trust you have in Me. So do not worry. Sleep peacefully. Always tell Me:
+        <!-- HERO -->
+        <section class="hero">
+            <h1 class="reveal">The <em>30-Day</em> Prayer</h1>
+            <p class="hero-body reveal reveal-delay-1">This message reached me 30 days ago.<br>Today I fulfill my promise to pass it on to you, hoping it helps you as much as it helped me.</p>
 
-                                <strong>Jesus, I trust in You!</strong>
-                                And you will see great miracles.
-                            </div>
+            <div class="hero-actions reveal reveal-delay-2">
+                <a href="https://api.whatsapp.com/send?text=I'm%20sharing%20this%20prayer%20that%20has%20given%20me%20so%20much%20peace.%20Read%20it%20for%2030%20days%20with%20faith:%20https://praywithjesustoday.com" class="hero-cta-share" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                    Share via WhatsApp
+                </a>
+            </div>
+
+        </section>
+
+        <!-- THE 30-DAY PRAYER -->
+        <section class="section prayer-section" id="prayer-en" style="padding-top: 56px;">
+            <div class="section-narrow">
+                <div class="prayer-frame reveal">
+                    <div class="prayer-body">
+                        <p>My Jesus, in You I have placed all my trust. You know everything, Father and Lord of the Universe, You are the King of kings. You who made the paralyzed walk, the dead live, the leper heal. You who know my anguish and see my tears, You know well, Divine Friend, how I need to obtain this grace from You:</p>
+
+                        <div class="prayer-instruction">
+                            <span>Ask for your grace here with faith</span>
                         </div>
-                        <div class="divider" style="font-size: 1rem; margin: 40px 0;">⚜️</div>
-                        <div class="prayer-part">
-                            <h3>30 Day Prayer</h3>
-                            <div class="prayer-text">
-                                My Jesus, in You I have placed all my trust. You know everything, Father and Lord of the Universe, You are the King of kings. You who made the paralyzed walk, the dead live, the leper heal. You who know my anguish and see my tears, You know well, Divine Friend, how I need to obtain this grace from You:
 
-                                <em>(Ask for your grace here with faith)</em>
+                        <p>Make it so, Divine Jesus, that before this conversation I will have with You for 30 days ends, I may obtain this grace I ask of You with much faith and hope.</p>
 
-                                Make it so, Divine Jesus, that before this conversation I will have with You for 30 days ends, I may obtain this grace I ask of You with much faith and hope.
+                        <p>My conversation with You, Divine Master, gives me encouragement and joy to live; from You alone I hope with faith and hope.</p>
 
-                                My conversation with You, Divine Master, gives me encouragement and joy to live; from You alone I hope with faith and hope.
-
-                                Illuminate my steps, just as the sun illuminates the dawn each morning, and bear witness to our conversation.
-                                Jesus Christ, I have confidence in You, and every day my faith in You increases.
-                            </div>
+                        <div class="prayer-instruction">
+                            <span>Ask for your grace here with faith</span>
                         </div>
-                        <div style="text-align: center; color: var(--gold); font-family: var(--font-title); font-size: 1.8rem; margin-top:40px;">
-                            Jesus, I Trust in You!
+
+                        <p class="prayer-commitment">With gratitude, I will spread this prayer so that others may draw near to You, find in You their help, learn to trust in Your mercy, and continue sharing Your message.</p>
+
+                        <p>Illuminate my steps, just as the sun illuminates the dawn each morning, and bear witness to our conversation.</p>
+
+                        <p class="prayer-closing">Jesus Christ, I have confidence in You, and every day my faith in You increases.</p>
+                    </div>
+
+                    <!-- SHARE after prayer -->
+                    <div class="share-strip">
+                        <div class="share-buttons">
+                            <a href="https://api.whatsapp.com/send?text=I'm%20sharing%20this%20prayer%20that%20has%20given%20me%20so%20much%20peace.%20Read%20it%20for%2030%20days%20with%20faith:%20https://praywithjesustoday.com" class="btn-whatsapp" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                                Send via WhatsApp
+                            </a>
+                            <button class="btn-copy" onclick="copyLink('en')">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="10" height="10" rx="2"/><path d="M4 14V5a2 2 0 0 1 2-2h9"/></svg>
+                                <span class="copy-label">Copy link</span>
+                            </button>
                         </div>
                     </div>
-                </details>
-            </section>
+                </div>
+            </div>
+        </section>
 
-            <section class="share-section">
-                <h3 style="color: var(--text-main); font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px;">Help me keep the chain unbroken</h3>
-                <p style="font-size: 1rem; color: var(--text-soft); max-width: 500px; margin: 0 auto 30px auto;">
-                    My promise was to spread this message.
-                    By sharing this link, you are delivering this peace to someone who needs it today.
-                </p>
-                <a href="https://api.whatsapp.com/send?text=I%20give%20you%20this%20prayer%20that%20has%20given%20me%20so%20much%20peace.%20Read%20it%20here:%20https://praywithjesustoday.com" class="btn-share" target="_blank">
-                    Share on WhatsApp 🕊️
-                </a>
-            </section>
-            
-            <footer>Made with faith. Thank you for being part of this chain.</footer>
+        <div class="divider">
+            <span class="divider-line"></span>
+            <span class="divider-icon">&#10013;</span>
+            <span class="divider-line"></span>
         </div>
 
+        <!-- THE MESSAGE OF JESUS (EXTRA) -->
+        <section class="section message-section" id="message-en">
+            <div class="section-narrow">
+                <p class="section-label reveal">Read it slowly</p>
+                <h2 class="section-title reveal" style="margin-bottom: 48px;">The Message of Jesus</h2>
+
+                <div class="message-card">
+                    <div class="prayer-body">
+                        <p class="reveal">When you surrender to Me, everything will be resolved peacefully according to My designs. Do not despair, do not offer Me an agitated prayer, as if you wanted to demand the fulfillment of your wishes.</p>
+
+                        <p class="reveal">Close the eyes of your soul and tell Me calmly:</p>
+
+                        <div class="mantra reveal">Jesus, I trust in You</div>
+
+                        <p class="reveal">Let yourself be carried in My divine arms, do not be afraid, I LOVE YOU. If you think things are getting worse or complicated despite your prayer, keep trusting.</p>
+
+                        <p class="reveal">Trust in Me, rest in Me. I perform miracles in proportion to the surrender and trust you have in Me. So do not worry. Sleep peacefully. Always tell Me:</p>
+
+                        <div class="mantra reveal">Jesus, I trust in You</div>
+
+                        <p class="message-closing reveal">And you will see great miracles.<br>I promise you with My love.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUOTES -->
+        <section class="section quotes-section">
+            <div class="quotes-header reveal">
+                <p class="section-label">For your peace</p>
+                <h2 class="section-title">Words that helped me</h2>
+            </div>
+
+            <div class="quotes-list">
+                <div class="quote-item reveal">
+                    "Why are you confused and agitated by the problems of life? Leave the care of all your things to Me and everything will be better."
+                </div>
+                <div class="quote-item reveal reveal-delay-1">
+                    "What hurts you most is your reasoning and your ideas, and wanting to resolve things your way."
+                </div>
+                <div class="quote-item reveal reveal-delay-2">
+                    "I need my hands free to work. Don't bind Me with your useless worries... Cast all your anguish upon Me."
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="final-section">
+            <p class="final-mantra reveal">Jesus, I trust in You</p>
+            <p class="final-body reveal">This prayer changed me. If it helped you too, share it with someone who needs it. Do what I did.</p>
+            <a href="https://api.whatsapp.com/send?text=I'm%20sharing%20this%20prayer%20that%20has%20given%20me%20so%20much%20peace.%20Read%20it%20for%2030%20days%20with%20faith:%20https://praywithjesustoday.com" class="btn-whatsapp reveal" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                Share this prayer
+            </a>
+        </section>
+
+        <footer class="footer">Made with faith. Peace, light and love.</footer>
     </div>
 
     <script>
         function switchLang(lang) {
-            // 1. Quitar la clase 'active' de todos los contenidos y botones
-            var contents = document.querySelectorAll('.lang-content');
-            var buttons = document.querySelectorAll('.lang-btn');
-            
-            for (var i = 0; i < contents.length; i++) {
-                contents[i].classList.remove('active');
-            }
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-
-            // 2. Añadir la clase 'active' solo al idioma seleccionado
+            document.querySelectorAll('.lang-content').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.lang-toggle button').forEach(function(el) {
+                el.classList.remove('active');
+            });
             document.getElementById('content-' + lang).classList.add('active');
             document.getElementById('btn-' + lang).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(initReveal, 100);
         }
+
+        function copyLink(lang) {
+            var url = 'https://praywithjesustoday.com';
+            navigator.clipboard.writeText(url).then(function() {
+                var btns = document.querySelectorAll('#content-' + lang + ' .btn-copy');
+                btns.forEach(function(btn) {
+                    btn.classList.add('copied');
+                    var label = btn.querySelector('.copy-label');
+                    var original = label.textContent;
+                    label.textContent = lang === 'es' ? 'Copiado' : 'Copied';
+                    setTimeout(function() {
+                        btn.classList.remove('copied');
+                        label.textContent = original;
+                    }, 2000);
+                });
+            });
+        }
+
+        function initReveal() {
+            var reveals = document.querySelectorAll('.lang-content.active .reveal');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            reveals.forEach(function(el) {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    el.classList.add('visible');
+                } else {
+                    observer.observe(el);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initReveal);
     </script>
 
 </body>
-
 </html>
